@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-08-25 03:01",
+  "subject": "Sample Applicant",
+  "alt_credit_score": 632,
+  "score_band": "Poor",
+  "score_range": "300-900 (alternative-data scale, not a bureau score)",
+  "strengths": [
+    {
+      "factor": "Wallet transaction regularity",
+      "detail": "value: 0.67"
+    },
+    {
+      "factor": "Employment stability (months)",
+      "detail": "value: 16.73"
+    },
+    {
+      "factor": "Subscription payment consistency",
+      "detail": "value: 69.43"
+    }
+  ],
+  "areas_of_weakness": [
+    {
+      "factor": "Utility bill punctuality",
+      "detail": "value: 70.09"
+    },
+    {
+      "factor": "Estimated monthly income",
+      "detail": "value: 8821.15"
+    },
+    {
+      "factor": "Rent payment punctuality",
+      "detail": "value: 0.00"
+    }
+  ],
+  "improvement_opportunities": [
+    {
+      "data_source": "Rent payment history",
+      "potential_uplift": "+54 points"
+    }
+  ],
+  "disclaimer": "This is an ALTERNATIVE creditworthiness assessment generated from non-traditional data (utility, subscription, wallet, and rent payment patterns) using a demonstration model trained on synthetic data. It is NOT a CIBIL/bureau score, is not regulated, and should not be treated as equivalent to a formal credit report. It is intended to give thin-file individuals supporting evidence of reliability to share with lenders or landlords who lack access to formal bureau data."
+}
