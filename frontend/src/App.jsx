@@ -1,18 +1,24 @@
 import { useState } from 'react'
 import ScoreForm from './ScoreForm'
 import ScoreResult from './ScoreResult'
+import ProofDocument from './ProofDocument'
 import './App.css'
 
 const API_BASE = 'http://127.0.0.1:5050'
 
 function App() {
   const [loading, setLoading] = useState(false)
+  const [proofLoading, setProofLoading] = useState(false)
   const [result, setResult] = useState(null)
+  const [proof, setProof] = useState(null)
   const [error, setError] = useState(null)
+  const [lastValues, setLastValues] = useState(null)
 
   const handleSubmit = async (values) => {
     setLoading(true)
     setError(null)
+    setProof(null)
+    setLastValues(values)
     try {
       const [scoreRes, gapsRes] = await Promise.all([
         fetch(`${API_BASE}/score`, {
@@ -42,6 +48,25 @@ function App() {
     }
   }
 
+  const handleGenerateProof = async () => {
+    if (!lastValues) return
+    setProofLoading(true)
+    try {
+      const res = await fetch(`${API_BASE}/proof`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(lastValues),
+      })
+      if (!res.ok) throw new Error('Could not generate proof document.')
+      const data = await res.json()
+      setProof(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setProofLoading(false)
+    }
+  }
+
   return (
     <div className="ledger">
       <header className="ledger-header">
@@ -60,7 +85,15 @@ function App() {
 
       {error && <p className="error-note mono">{error}</p>}
 
-      {result && <ScoreResult result={result} />}
+      {result && (
+        <ScoreResult
+          result={result}
+          onGenerateProof={handleGenerateProof}
+          proofLoading={proofLoading}
+        />
+      )}
+
+      {proof && <ProofDocument proof={proof} />}
     </div>
   )
 }

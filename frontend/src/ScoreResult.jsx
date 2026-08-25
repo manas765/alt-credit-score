@@ -1,4 +1,4 @@
-function ScoreResult({ result }) {
+function ScoreResult({ result, onGenerateProof, proofLoading }) {
   const { alt_credit_score, score_band, explanation, gaps, disclaimer } = result
 
   const positives = explanation.filter(e => e.contribution > 0).slice(0, 3)
@@ -55,6 +55,14 @@ function ScoreResult({ result }) {
           </ul>
         </>
       )}
+
+      <button
+        className="proof-button"
+        onClick={onGenerateProof}
+        disabled={proofLoading}
+      >
+        {proofLoading ? 'Preparing document…' : 'Generate shareable proof of creditworthiness'}
+      </button>
 
       <p className="disclaimer mono">{disclaimer}</p>
     </div>

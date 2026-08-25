@@ -175,3 +175,133 @@
   line-height: 1.6;
   color: var(--pencil);
 }
+.proof-button {
+  margin-top: 24px;
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: var(--stamp-red);
+  border: 1.5px solid var(--stamp-red);
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.proof-button:hover:not(:disabled) {
+  background: var(--stamp-red);
+  color: var(--paper);
+}
+
+.proof-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.proof-doc {
+  margin-top: 40px;
+  border: 1px solid var(--ink);
+  padding: 40px;
+  position: relative;
+  background: #fff;
+}
+
+.proof-seal {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 84px;
+  height: 84px;
+  border: 2px solid var(--seal-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(8deg);
+  color: var(--seal-gold);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.proof-title {
+  font-size: 24px;
+  max-width: 400px;
+}
+
+.proof-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--pencil);
+}
+
+.proof-score-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.proof-score-num {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--stamp-red);
+}
+
+.proof-score-band {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.proof-score-range {
+  font-size: 12px;
+  color: var(--pencil);
+  margin-top: 2px;
+}
+
+.proof-section {
+  margin: 20px 0;
+}
+
+.proof-section h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.proof-section ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.proof-disclaimer {
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--pencil);
+}
+
+.print-button {
+  margin-top: 24px;
+  padding: 12px 20px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+@media print {
+  .no-print, .ledger-header, .score-form, .result, .error-note {
+    display: none !important;
+  }
+  .proof-doc {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+}
