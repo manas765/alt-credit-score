@@ -1,0 +1,60 @@
+:root {
+  --paper: #F7F4EC;
+  --paper-line: #DCD5C3;
+  --ink: #1B2A4A;
+  --ink-soft: #3D4A66;
+  --stamp-red: #8B1E1E;
+  --seal-gold: #C9A961;
+  --pencil: #5C6B73;
+
+  --font-display: 'Fraunces', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.rule {
+  border: none;
+  border-top: 1px solid var(--paper-line);
+  margin: 32px 0;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
