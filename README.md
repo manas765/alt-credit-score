@@ -37,14 +37,17 @@ bureau access.
    — something they could realistically hand to a local lender or
    landlord who lacks bureau access.
 
-   ## Screenshots
+## Screenshots
 
 **Score result with SHAP-based explanation and gap coaching:**
-![Score result](docs/screenshots/score-result.png)
+
+![Score result](docs/screenshots/score-result.jpg)
 
 **Shareable proof-of-creditworthiness document:**
-![Proof document](docs/screenshots/proof-document.png)
 
+![Proof document](docs/screenshots/proof-document.jpg)
+
+   
 ## Why this is different from "another CIBIL score project"
 
 Most portfolio projects in this space simulate an existing score. This
