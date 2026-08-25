@@ -336,3 +336,35 @@
   margin-top: 4px;
   max-width: 340px;
 }
+.range-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: -16px;
+  margin-bottom: 32px;
+  font-size: 13px;
+  color: var(--pencil);
+}
+
+.confidence-tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.02em;
+}
+
+.confidence-high {
+  background: #E8F0E5;
+  color: #3D6B34;
+}
+
+.confidence-moderate {
+  background: #FBF1DD;
+  color: #8A6A1F;
+}
+
+.confidence-low {
+  background: #F5E3E0;
+  color: var(--stamp-red);
+}

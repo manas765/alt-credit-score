@@ -1,5 +1,5 @@
 function ScoreResult({ result, onGenerateProof, proofLoading }) {
-  const { alt_credit_score, score_band, explanation, gaps, disclaimer } = result
+  const { alt_credit_score, score_band, explanation, gaps, disclaimer, range } = result
 
   const positives = explanation.filter(e => e.contribution > 0).slice(0, 3)
   const negatives = explanation.filter(e => e.contribution < 0).slice(0, 3)
@@ -15,6 +15,16 @@ function ScoreResult({ result, onGenerateProof, proofLoading }) {
           <span className="stamp-band">{score_band}</span>
         </div>
       </div>
+      {range && (
+        <div className="range-note">
+          <span className="mono">
+            Likely range: {range.score_range_low}–{range.score_range_high}
+          </span>
+          <span className={`confidence-tag ${range.confidence_label.includes('High') ? 'confidence-high' : range.confidence_label.includes('Moderate') ? 'confidence-moderate' : 'confidence-low'}`}>
+            {range.confidence_label}
+          </span>
+        </div>
+      )}
 
       <div className="factor-columns">
         <div>

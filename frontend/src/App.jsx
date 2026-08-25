@@ -20,7 +20,7 @@ function App() {
     setProof(null)
     setLastValues(values)
     try {
-      const [scoreRes, gapsRes] = await Promise.all([
+      const [scoreRes, gapsRes, rangeRes] = await Promise.all([
         fetch(`${API_BASE}/score`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -31,16 +31,22 @@ function App() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(values),
         }),
+        fetch(`${API_BASE}/score-range`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        }),
       ])
 
-      if (!scoreRes.ok || !gapsRes.ok) {
+      if (!scoreRes.ok || !gapsRes.ok || !rangeRes.ok) {
         throw new Error('Something went wrong reaching the scoring service.')
       }
 
       const scoreData = await scoreRes.json()
       const gapsData = await gapsRes.json()
+      const rangeData = await rangeRes.json()
 
-      setResult({ ...scoreData, gaps: gapsData.suggestions })
+      setResult({ ...scoreData, gaps: gapsData.suggestions, range: rangeData })
     } catch (err) {
       setError(err.message)
     } finally {
