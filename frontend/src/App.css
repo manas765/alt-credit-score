@@ -305,3 +305,34 @@
     margin: 0;
   }
 }
+.form-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.beginner-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.beginner-toggle input {
+  accent-color: var(--stamp-red);
+  cursor: pointer;
+}
+
+.beginner-note {
+  font-size: 12px;
+  color: var(--stamp-red);
+  font-weight: 400;
+  line-height: 1.5;
+  margin-top: 4px;
+  max-width: 340px;
+}
