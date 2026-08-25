@@ -16,11 +16,13 @@ import pandas as pd
 from explain import load_model, build_explainer, explain_prediction, FEATURE_LABELS
 from gap_coach import suggest_data_gaps, proba_to_score
 from proof_export import generate_proof, format_proof_as_text
+from uncertainty import load_ensemble, score_with_uncertainty
 
 app = Flask(__name__)
 CORS(app)
 
 MODEL, FEATURES = load_model()
+ENSEMBLE_MODELS, ENSEMBLE_FEATURES = load_ensemble()
 EXPLAINER = build_explainer(MODEL)
 BACKGROUND_DF = pd.read_csv("data/synthetic_alt_credit_data.csv")
 
@@ -84,6 +86,24 @@ def health():
 def features():
     return jsonify({"features": FEATURES, "labels": FEATURE_LABELS})
 
+@app.route("/score-range", methods=["POST"])
+def score_range():
+    payload = request.get_json(force=True)
+    input_row, error = validate_and_parse(payload)
+    if error:
+        return jsonify({"error": error}), 400
+
+    result = score_with_uncertainty(ENSEMBLE_MODELS, ENSEMBLE_FEATURES, input_row)
+
+    return jsonify({
+        **result,
+        "disclaimer": (
+            "This range reflects model uncertainty based on an ensemble of "
+            "models and data availability, not a formal statistical "
+            "guarantee. Generated from SYNTHETIC data for demonstration "
+            "purposes."
+        ),
+    })
 
 @app.route("/score", methods=["POST"])
 def score():
