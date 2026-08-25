@@ -41,11 +41,11 @@ bureau access.
 
 **Score result with SHAP-based explanation and gap coaching:**
 
-![Score result](docs/screenshots/score-result.jpg)
+![Score result](docs/screenshots/score-result.jpeg)
 
 **Shareable proof-of-creditworthiness document:**
 
-![Proof document](docs/screenshots/proof-document.jpg)
+![Proof document](docs/screenshots/proof-document.jpeg)
 
    
 ## Why this is different from "another CIBIL score project"
