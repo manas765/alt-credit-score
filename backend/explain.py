@@ -21,6 +21,18 @@ FEATURE_LABELS = {
     "has_rent_data": "Rent data available",
     "months_of_data_available": "Months of data on file",
 }
+TRUST_LEVELS = {
+    "utility_payment_punctuality_score": "verifiable",
+    "wallet_txn_regularity": "verifiable",
+    "wallet_avg_monthly_txn_count": "verifiable",
+    "subscription_payment_consistency": "verifiable",
+    "employment_stability_months": "verifiable",
+    "education_level": "self-reported",
+    "avg_monthly_income_proxy": "self-reported",
+    "rent_payment_punctuality": "verifiable",
+    "has_rent_data": "self-reported",
+    "months_of_data_available": "self-reported",
+}
 
 
 def load_model():
@@ -50,7 +62,9 @@ def explain_prediction(explainer, features, input_row: dict):
             "label": FEATURE_LABELS.get(feat, feat),
             "value": input_row[feat],
             "contribution": round(float(row_shap[i]), 4),
+            "trust_level": TRUST_LEVELS.get(feat, "unknown")
         })
+        
 
     contributions.sort(key=lambda c: abs(c["contribution"]), reverse=True)
     return contributions
