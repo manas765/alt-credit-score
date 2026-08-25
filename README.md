@@ -108,6 +108,24 @@ domain/legal review.
 
 ## Architecture
 
+```
+data/
+  generate_data.py         - synthetic dataset generator (documented assumptions)
+backend/
+  train_model.py           - XGBoost training + logistic regression baseline
+  explain.py                - SHAP-based explainability layer
+  gap_coach.py               - data-gap coaching engine (differentiator #1)
+  proof_export.py             - proof-of-creditworthiness generator (differentiator #2)
+  bias_audit.py                - fairness diagnostic across sensitive-proxy features
+  app.py                        - Flask API (score / gaps / proof endpoints)
+  tests/test_api.py              - pytest suite (11 tests)
+frontend/
+  src/App.jsx                    - main app shell + API wiring
+  src/ScoreForm.jsx                - alt-data input form
+  src/ScoreResult.jsx               - score stamp + factor breakdown + gap coaching
+  src/ProofDocument.jsx              - shareable proof document view
+```
+
 
 
 ## Running it locally
