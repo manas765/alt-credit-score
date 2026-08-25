@@ -39,14 +39,39 @@ def band_for_score(score: int) -> str:
     return "Very Poor"
 
 
+FIELD_RANGES = {
+    "utility_payment_punctuality_score": (0, 100),
+    "wallet_txn_regularity": (0, 1),
+    "wallet_avg_monthly_txn_count": (0, 500),
+    "subscription_payment_consistency": (0, 100),
+    "employment_stability_months": (0, 600),
+    "education_level": (0, 3),
+    "avg_monthly_income_proxy": (0, 5_000_000),
+    "rent_payment_punctuality": (0, 100),
+    "has_rent_data": (0, 1),
+    "months_of_data_available": (0, 600),
+}
+
+
 def validate_and_parse(payload):
     missing = [f for f in FEATURES if f not in payload]
     if missing:
         return None, f"Missing fields: {missing}"
+
     try:
         input_row = {f: float(payload[f]) for f in FEATURES}
     except (TypeError, ValueError) as e:
         return None, f"Invalid input values: {e}"
+
+    out_of_range = []
+    for f, val in input_row.items():
+        lo, hi = FIELD_RANGES[f]
+        if val < lo or val > hi:
+            out_of_range.append(f"{f} must be between {lo} and {hi} (got {val})")
+
+    if out_of_range:
+        return None, "Out-of-range values: " + "; ".join(out_of_range)
+
     return input_row, None
 
 
