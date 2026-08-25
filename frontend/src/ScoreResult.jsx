@@ -27,12 +27,17 @@ function ScoreResult({ result, onGenerateProof, proofLoading }) {
       )}
 
       <div className="factor-columns">
-        <div>
+               <div>
           <h3 className="factor-heading">Working in your favor</h3>
           <ul className="factor-list">
             {positives.map(p => (
               <li key={p.feature}>
-                <span>{p.label}</span>
+                <span>
+                  {p.label}
+                  <span className={`trust-badge ${p.trust_level === 'verifiable' ? 'trust-verifiable' : 'trust-self'}`}>
+                    {p.trust_level === 'verifiable' ? 'Verifiable' : 'Self-reported'}
+                  </span>
+                </span>
                 <span className="mono factor-value">value: {p.value.toFixed(2)}</span>
               </li>
             ))}
@@ -43,7 +48,12 @@ function ScoreResult({ result, onGenerateProof, proofLoading }) {
           <ul className="factor-list">
             {negatives.map(n => (
               <li key={n.feature}>
-                <span>{n.label}</span>
+                <span>
+                  {n.label}
+                  <span className={`trust-badge ${n.trust_level === 'verifiable' ? 'trust-verifiable' : 'trust-self'}`}>
+                    {n.trust_level === 'verifiable' ? 'Verifiable' : 'Self-reported'}
+                  </span>
+                </span>
                 <span className="mono factor-value">value: {n.value.toFixed(2)}</span>
               </li>
             ))}

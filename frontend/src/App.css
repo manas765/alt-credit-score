@@ -368,3 +368,27 @@
   background: #F5E3E0;
   color: var(--stamp-red);
 }
+.factor-list li span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trust-badge {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.trust-verifiable {
+  background: #E8F0E5;
+  color: #3D6B34;
+}
+
+.trust-self {
+  background: #EFE9DC;
+  color: var(--pencil);
+}
