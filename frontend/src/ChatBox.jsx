@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-const API_BASE = 'http://127.0.0.1:5050'
+const API_BASE = import.meta.env.VITE_API_BASE
 
 function ChatBox({ scoreId }) {
   const [messages, setMessages] = useState([])

@@ -4,7 +4,7 @@ import ScoreResult from './ScoreResult'
 import ProofDocument from './ProofDocument'
 import './App.css'
 
-const API_BASE = 'http://127.0.0.1:5050'
+const API_BASE = import.meta.env.VITE_API_BASE
 
 function App() {
   const [loading, setLoading] = useState(false)
