@@ -59,13 +59,20 @@
 .field-row input {
   width: 160px;
   text-align: right;
-  padding: 12px 28px 12px 14px;
+  padding: 12px 16px;
   border: 1px solid var(--paper-line);
-  border-radius: 2px;
+  border-radius: 4px;
   background: var(--paper);
   color: var(--ink);
   font-size: 18px;
   font-family: var(--font-mono);
+  -moz-appearance: textfield;
+}
+
+.field-row input::-webkit-outer-spin-button,
+.field-row input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .field-row input:focus-visible {
@@ -561,25 +568,18 @@
 .chat-examples {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 16px;
 }
 
 .ledger-register {
   position: relative;
   border: 1.5px solid var(--ink);
-  border-radius: 4px;
-  padding: 36px 32px 32px;
+  border-radius: 6px;
+  padding: 32px;
   margin-top: 20px;
   background-color: var(--paper);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 38px,
-    var(--paper-line) 38px,
-    var(--paper-line) 39px
-  );
-  box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
 .ledger-register::before {
@@ -589,6 +589,7 @@
   left: 0;
   right: 0;
   height: 5px;
+  border-radius: 6px 6px 0 0;
   background: var(--stamp-red);
 }
 
