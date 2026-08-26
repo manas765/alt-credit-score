@@ -4,15 +4,20 @@ import remarkGfm from 'remark-gfm'
 
 const API_BASE = import.meta.env.VITE_API_BASE
 
+const EXAMPLE_QUESTIONS = [
+  "Why is my score what it is?",
+  "What can I do to improve my score?",
+  "Is my score good or bad?",
+]
+
 function ChatBox({ scoreId }) {
   const [messages, setMessages] = useState([])
   const [question, setQuestion] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleAsk = async (e) => {
-    e.preventDefault()
-    const trimmed = question.trim()
+  const sendQuestion = async (text) => {
+    const trimmed = text.trim()
     if (!trimmed || loading) return
 
     const userMessage = { role: 'user', text: trimmed }
@@ -42,49 +47,71 @@ function ChatBox({ scoreId }) {
     }
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    sendQuestion(question)
+  }
+
   return (
     <div className="chat-box">
       <hr className="rule" />
       <span className="eyebrow mono">ASK ABOUT YOUR SCORE</span>
 
-      <div className="chat-messages">
-        {messages.length === 0 && (
-          <p className="chat-empty mono">
-            Ask a question about your score — e.g. "Why is my score what it is?"
-          </p>
-        )}
-                {messages.map((m, i) => (
-          <div key={i} className={`chat-message chat-message-${m.role}`}>
-            <span className="chat-message-label mono">
-              {m.role === 'user' ? 'You' : 'Assistant'}
-            </span>
-            <div className="chat-message-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.text}</ReactMarkdown>
+      <div className="chat-panel">
+        <div className="chat-messages">
+          {messages.length === 0 && (
+            <>
+              <p className="chat-empty mono">
+                Ask a question about your score, or try one of these:
+              </p>
+              <div className="chat-examples">
+                {EXAMPLE_QUESTIONS.map((q) => (
+                  <button
+                    key={q}
+                    type="button"
+                    className="chat-example-chip"
+                    onClick={() => sendQuestion(q)}
+                    disabled={loading}
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+          {messages.map((m, i) => (
+            <div key={i} className={`chat-message chat-message-${m.role}`}>
+              <span className="chat-message-label mono">
+                {m.role === 'user' ? 'You' : 'Assistant'}
+              </span>
+              <div className="chat-message-body">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.text}</ReactMarkdown>
+              </div>
             </div>
-          </div>
-        ))}
-        {loading && (
-          <div className="chat-message chat-message-assistant">
-            <span className="chat-message-label mono">Assistant</span>
-            <p className="chat-typing">Thinking…</p>
-          </div>
-        )}
+          ))}
+          {loading && (
+            <div className="chat-message chat-message-assistant">
+              <span className="chat-message-label mono">Assistant</span>
+              <p className="chat-typing">Thinking…</p>
+            </div>
+          )}
+        </div>
+
+        {error && <p className="error-note mono">{error}</p>}
+
+        <form className="chat-input-row" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={question}
+            onChange={e => setQuestion(e.target.value)}
+            placeholder="Ask a question about your score…"
+            disabled={loading}
+          />
+          <button type="submit" disabled={loading || !question.trim()}>
+            {loading ? '…' : 'Ask'}
+          </button>
+        </form>
       </div>
-
-      {error && <p className="error-note mono">{error}</p>}
-
-      <form className="chat-input-row" onSubmit={handleAsk}>
-        <input
-          type="text"
-          value={question}
-          onChange={e => setQuestion(e.target.value)}
-          placeholder="Ask a question about your score…"
-          disabled={loading}
-        />
-        <button type="submit" disabled={loading || !question.trim()}>
-          {loading ? '…' : 'Ask'}
-        </button>
-      </form>
     </div>
   )
 }
