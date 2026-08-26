@@ -542,11 +542,23 @@
   cursor: not-allowed;
 }
 .chat-panel {
-  border: 1px solid var(--paper-line);
+  position: relative;
+  border: 1.5px solid var(--ink);
   border-radius: 2px;
-  padding: 24px;
+  padding: 28px 24px 24px;
   margin-top: 20px;
-  background: color-mix(in srgb, var(--paper) 96%, var(--ink) 4%);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.chat-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--stamp-red);
 }
 
 .chat-messages:empty {
@@ -562,14 +574,38 @@
 
 .chat-example-chip {
   padding: 8px 14px;
-  background: transparent;
-  border: 1px solid var(--paper-line);
+  background: color-mix(in srgb, var(--stamp-red) 10%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--stamp-red) 35%, var(--paper-line));
   border-radius: 14px;
-  color: var(--ink-soft);
+  color: var(--stamp-red);
   font-size: 12px;
   font-family: var(--font-body);
-  transition: border-color 0.15s ease, color 0.15s ease;
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
 }
+
+.chat-example-chip:hover:not(:disabled) {
+  background: var(--stamp-red);
+  color: var(--paper);
+}
+
+.chat-example-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-messages:empty {
+  display: none;
+}
+
+.chat-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+
 
 .chat-example-chip:hover:not(:disabled) {
   border-color: var(--stamp-red);
