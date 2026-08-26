@@ -1,22 +1,15 @@
-"""
-Alt-Credit Scoring API
-=======================
-Endpoints:
-  GET  /health   - health check
-  GET  /features - list of expected input fields (for building a form)
-  POST /score    - returns score + band + SHAP explanation
-  POST /gaps     - returns data-gap coaching suggestions
-  POST /proof    - returns full proof-of-creditworthiness document
-"""
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import pandas as pd
+import pandas as pd 
+import uuid
+
 
 from explain import load_model, build_explainer, explain_prediction, FEATURE_LABELS
 from gap_coach import suggest_data_gaps, proba_to_score
 from proof_export import generate_proof, format_proof_as_text
 from uncertainty import load_ensemble, score_with_uncertainty
+from ai_assistant import ask_assistant
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +20,7 @@ EXPLAINER = build_explainer(MODEL)
 BACKGROUND_DF = pd.read_csv("data/synthetic_alt_credit_data.csv")
 
 SCORE_MIN, SCORE_MAX = 300, 900
+SCORE_STORE = {}  # in-memory store: score_id -> validated input_row (swap for a real DB later)
 
 
 def band_for_score(score: int) -> str:
@@ -104,7 +98,6 @@ def score_range():
             "purposes."
         ),
     })
-
 @app.route("/score", methods=["POST"])
 def score():
     payload = request.get_json(force=True)
@@ -118,7 +111,11 @@ def score():
 
     contributions = explain_prediction(EXPLAINER, FEATURES, input_row)
 
+    score_id = str(uuid.uuid4())
+    SCORE_STORE[score_id] = input_row
+
     return jsonify({
+        "score_id": score_id,
         "alt_credit_score": alt_score,
         "score_band": band_for_score(alt_score),
         "creditworthy_probability": round(float(proba), 4),
@@ -154,6 +151,44 @@ def proof():
     proof_doc["formatted_text"] = format_proof_as_text(proof_doc)
 
     return jsonify(proof_doc)
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    payload = request.get_json(force=True)
+
+    score_id = payload.get("score_id")
+    question = payload.get("question")
+
+    if not score_id or not question:
+        return jsonify({"error": "Both 'score_id' and 'question' are required"}), 400
+
+    input_row = SCORE_STORE.get(score_id)
+    if input_row is None:
+        return jsonify({"error": "Unknown or expired score_id. Please generate a new score first."}), 404
+
+    # Recompute everything fresh from the stored input — never trust
+    # anything the client sends about the score itself.
+    x_df = pd.DataFrame([[input_row[f] for f in FEATURES]], columns=FEATURES)
+    proba = MODEL.predict_proba(x_df)[0, 1]
+    alt_score = int(round(SCORE_MIN + proba * (SCORE_MAX - SCORE_MIN)))
+    contributions = explain_prediction(EXPLAINER, FEATURES, input_row)
+    gap_suggestions = suggest_data_gaps(MODEL, FEATURES, input_row, BACKGROUND_DF)
+    range_result = score_with_uncertainty(ENSEMBLE_MODELS, ENSEMBLE_FEATURES, input_row)
+
+    score_data = {
+        "alt_credit_score": alt_score,
+        "score_band": band_for_score(alt_score),
+        "range": range_result,
+        "explanation": contributions,
+        "gaps": gap_suggestions,
+    }
+
+    try:
+        answer = ask_assistant(score_data, question)
+    except Exception as e:
+        return jsonify({"error": f"Assistant is temporarily unavailable: {e}"}), 502
+
+    return jsonify({"answer": answer})
 
 
 if __name__ == "__main__":

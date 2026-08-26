@@ -1,5 +1,7 @@
+import ChatBox from './ChatBox'
+
 function ScoreResult({ result, onGenerateProof, proofLoading }) {
-  const { alt_credit_score, score_band, explanation, gaps, disclaimer, range } = result
+  const { score_id, alt_credit_score, score_band, explanation, gaps, disclaimer, range } = result
 
   const positives = explanation.filter(e => e.contribution > 0).slice(0, 3)
   const negatives = explanation.filter(e => e.contribution < 0).slice(0, 3)
@@ -76,7 +78,7 @@ function ScoreResult({ result, onGenerateProof, proofLoading }) {
         </>
       )}
 
-      <button
+            <button
         className="proof-button"
         onClick={onGenerateProof}
         disabled={proofLoading}
@@ -85,6 +87,8 @@ function ScoreResult({ result, onGenerateProof, proofLoading }) {
       </button>
 
       <p className="disclaimer mono">{disclaimer}</p>
+
+      <ChatBox scoreId={score_id} />
     </div>
   )
 }

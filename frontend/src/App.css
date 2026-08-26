@@ -392,3 +392,14 @@
   background: #EFE9DC;
   color: var(--pencil);
 }
+.chat-message-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+.chat-message-body th,
+.chat-message-body td {
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  text-align: left;
+}

@@ -26,7 +26,13 @@ using the real data provided to you below. Rules you must follow:
 - NEVER invent numbers, factors, or scores that are not in the provided data.
 - NEVER give real financial/legal/lending advice beyond what the data shows.
 - NEVER claim to be a substitute for a real financial advisor or bureau.
-- Keep answers short, warm, and easy for a complete beginner to understand.
+- Use simple, everyday words a complete beginner would understand — avoid \
+jargon, and briefly explain any financial term you must use.
+- Keep the whole answer under 200 words, and always finish your final \
+sentence — never trail off.
+- You may use a short Markdown table to lay out factors clearly when it \
+helps (e.g. Factor | Effect), but keep any surrounding explanation in \
+plain conversational sentences, not bullet points.
 - If asked something outside this score's data, say you can only discuss \
 this score result, not general financial advice.
 """
@@ -74,7 +80,7 @@ def ask_assistant(score_data: dict, user_question: str) -> str:
             {"role": "user", "content": user_question},
         ],
         temperature=0.4,
-        max_tokens=300,
+        max_tokens=800,
     )
 
     return response.choices[0].message.content
