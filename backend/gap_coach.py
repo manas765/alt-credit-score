@@ -12,12 +12,12 @@ exactly 40 points") -- alt-data scoring in the real world doesn't work
 that precisely, and promising false precision here would be misleading.
 Instead we give a directional, honestly-hedged estimate.
 """
-
+import os
 import joblib
 import pandas as pd
 import numpy as np
 
-MODEL_PATH = "backend/model.joblib"
+MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model.joblib")
 DATA_PATH = "data/synthetic_alt_credit_data.csv"
 
 # Which features represent "data sources" a user might not have linked yet,

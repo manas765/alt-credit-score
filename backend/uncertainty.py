@@ -16,11 +16,12 @@ approach is a legitimate, standard, and honest first-pass method for
 communicating model uncertainty.
 """
 
+import os
 import joblib
 import numpy as np
 import pandas as pd
 
-ENSEMBLE_PATH = "backend/ensemble.joblib"
+ENSEMBLE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ensemble.joblib")
 
 SCORE_MIN, SCORE_MAX = 300, 900
 

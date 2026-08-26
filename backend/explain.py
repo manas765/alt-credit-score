@@ -1,13 +1,13 @@
 """
 Explainability layer for the alt-credit model using real SHAP TreeExplainer.
 """
-
+import os
 import joblib
 import shap
 import pandas as pd
 
-MODEL_PATH = "backend/model.joblib"
-DATA_PATH = "data/synthetic_alt_credit_data.csv"
+MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model.joblib")
+DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/synthetic_alt_credit_data.csv")
 
 FEATURE_LABELS = {
     "utility_payment_punctuality_score": "Utility bill punctuality",

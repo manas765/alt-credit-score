@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd 
 import uuid
+import os
 
 
 from explain import load_model, build_explainer, explain_prediction, FEATURE_LABELS
@@ -17,7 +18,7 @@ CORS(app)
 MODEL, FEATURES = load_model()
 ENSEMBLE_MODELS, ENSEMBLE_FEATURES = load_ensemble()
 EXPLAINER = build_explainer(MODEL)
-BACKGROUND_DF = pd.read_csv("data/synthetic_alt_credit_data.csv")
+BACKGROUND_DF = pd.read_csv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "synthetic_alt_credit_data.csv"))
 
 SCORE_MIN, SCORE_MAX = 300, 900
 SCORE_STORE = {}  # in-memory store: score_id -> validated input_row (swap for a real DB later)

@@ -10,7 +10,7 @@ demonstration-grade alternative assessment, not a bureau-recognized
 credit report. That distinction matters and should never be blurred,
 even in a portfolio project.
 """
-
+import os
 import json
 from datetime import datetime
 
@@ -18,7 +18,7 @@ from explain import load_model, build_explainer, explain_prediction
 from gap_coach import suggest_data_gaps, proba_to_score
 import pandas as pd
 
-DATA_PATH = "data/synthetic_alt_credit_data.csv"
+DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "synthetic_alt_credit_data.csv")
 
 
 def band_for_score(score: int) -> str:
@@ -123,6 +123,7 @@ if __name__ == "__main__":
     proof = generate_proof(model, features, explainer, sample, df, user_label="Sample Applicant")
     print(format_proof_as_text(proof))
 
-    with open("backend/sample_proof.json", "w") as f:
+    SAMPLE_PROOF_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sample_proof.json")
+    with open(SAMPLE_PROOF_PATH, "w") as f:
         json.dump(proof, f, indent=2)
-    print("\n\nSaved JSON version -> backend/sample_proof.json")
+    print(f"\n\nSaved JSON version -> {SAMPLE_PROOF_PATH}")
