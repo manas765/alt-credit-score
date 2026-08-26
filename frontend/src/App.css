@@ -62,7 +62,7 @@
   padding: 8px 10px;
   border: 1px solid var(--paper-line);
   border-radius: 2px;
-  background: #fff;
+  background: var(--paper);
   color: var(--ink);
   font-size: 14px;
 }
