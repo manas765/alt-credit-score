@@ -59,7 +59,7 @@
 .field-row input {
   width: 160px;
   text-align: right;
-  padding: 12px 14px;
+  padding: 12px 28px 12px 14px;
   border: 1px solid var(--paper-line);
   border-radius: 2px;
   background: var(--paper);
@@ -568,18 +568,18 @@
 .ledger-register {
   position: relative;
   border: 1.5px solid var(--ink);
-  border-radius: 2px;
-  padding: 28px 24px 24px;
+  border-radius: 4px;
+  padding: 36px 32px 32px;
   margin-top: 20px;
   background-color: var(--paper);
   background-image: repeating-linear-gradient(
     to bottom,
     transparent,
-    transparent 34px,
-    var(--paper-line) 34px,
-    var(--paper-line) 35px
+    transparent 38px,
+    var(--paper-line) 38px,
+    var(--paper-line) 39px
   );
-  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 8%, transparent);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
 .ledger-register::before {
@@ -588,33 +588,34 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 5px;
   background: var(--stamp-red);
 }
 
 .chat-examples {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-  margin-bottom: 8px;
+  gap: 10px;
+  margin-top: 16px;
+  margin-bottom: 12px;
 }
 
 .chat-example-chip {
-  padding: 8px 14px;
-  background: color-mix(in srgb, var(--stamp-red) 10%, var(--paper));
-  border: 1px solid color-mix(in srgb, var(--stamp-red) 35%, var(--paper-line));
-  border-radius: 14px;
-  color: var(--stamp-red);
-  font-size: 12px;
+  padding: 10px 18px;
+  background: color-mix(in srgb, var(--stamp-red) 22%, var(--paper));
+  border: 1.5px solid var(--stamp-red);
+  border-radius: 16px;
+  color: color-mix(in srgb, var(--stamp-red) 85%, white 15%);
+  font-size: 13px;
   font-family: var(--font-body);
-  font-weight: 500;
-  transition: background 0.15s ease, color 0.15s ease;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 
 .chat-example-chip:hover:not(:disabled) {
   background: var(--stamp-red);
   color: var(--paper);
+  transform: translateY(-1px);
 }
 
 .chat-example-chip:disabled {
