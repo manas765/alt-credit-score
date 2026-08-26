@@ -403,3 +403,35 @@
   padding: 4px 8px;
   text-align: left;
 }
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  color: var(--ink-soft);
+}
+
+.theme-toggle-stamp {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--stamp-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--stamp-red);
+  transform: rotate(-4deg);
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover .theme-toggle-stamp {
+  transform: rotate(4deg);
+}
+
+.theme-toggle-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

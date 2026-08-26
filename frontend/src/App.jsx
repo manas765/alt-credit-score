@@ -3,6 +3,7 @@ import ScoreForm from './ScoreForm'
 import ScoreResult from './ScoreResult'
 import ProofDocument from './ProofDocument'
 import './App.css'
+import ThemeToggle from './ThemeToggle'
 
 const API_BASE = import.meta.env.VITE_API_BASE
 
@@ -76,14 +77,17 @@ function App() {
   return (
     <div className="ledger">
       <header className="ledger-header">
-        <span className="eyebrow mono">ALT-CREDIT LEDGER</span>
-        <h1>Your record, built from what you already do.</h1>
-        <p className="subhead">
-          A creditworthiness assessment for people without a formal credit
-          history — built from utility payments, wallet activity, and
-          steady habits, not just a bureau file.
-        </p>
-      </header>
+  <div className="form-header-row">
+    <span className="eyebrow mono">ALT-CREDIT LEDGER</span>
+    <ThemeToggle />
+  </div>
+  <h1>Your record, built from what you already do.</h1>
+  <p className="subhead">
+    A creditworthiness assessment for people without a formal credit
+    history — built from utility payments, wallet activity, and
+    steady habits, not just a bureau file.
+  </p>
+</header>
 
       <hr className="rule" />
 

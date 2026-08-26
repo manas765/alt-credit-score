@@ -12,6 +12,16 @@
   --font-body: 'Inter', sans-serif;
 }
 
+[data-theme="dark"] {
+  --paper: #17191C;
+  --paper-line: #3A3D36;
+  --ink: #EDE6D6;
+  --ink-soft: #B9B0A0;
+  --stamp-red: #D65C54;
+  --seal-gold: #DEC07A;
+  --pencil: #8D8778;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -22,8 +32,8 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
-
 #root {
   max-width: 780px;
   margin: 0 auto;
