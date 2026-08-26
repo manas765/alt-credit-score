@@ -43,15 +43,15 @@
 }
 
 .field-row label {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--ink-soft);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .field-row .hint {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--pencil);
   font-weight: 400;
 }
@@ -64,7 +64,8 @@
   border-radius: 4px;
   background: var(--paper);
   color: var(--ink);
-  font-size: 18px;
+  font-size: 19px;
+  font-weight: 600;
   font-family: var(--font-mono);
   -moz-appearance: textfield;
 }
@@ -73,11 +74,6 @@
 .field-row input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.field-row input:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 1px;
 }
 
 .stamp-button {
@@ -337,12 +333,12 @@
 }
 
 .beginner-note {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--stamp-red);
   font-weight: 400;
-  line-height: 1.5;
-  margin-top: 4px;
-  max-width: 340px;
+  line-height: 1.6;
+  margin-top: 6px;
+  max-width: 420px;
 }
 .range-note {
   display: flex;
