@@ -5,3 +5,7 @@ __pycache__/
 node_modules/
 .pytest_cache/
 frontend/dist/
+.env
+.env.local
+venv/
+__pycache__/
